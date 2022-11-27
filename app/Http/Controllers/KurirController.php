@@ -7,9 +7,15 @@ use Illuminate\Http\Request;
 
 class KurirController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 
-        $data = Kurir::all();
+        if($request->has('search')){
+            $data = Kurir::where('nama','LIKE','%'.$request->search.'%')->paginate(5);
+        }else{
+            $data = Kurir::paginate(5);
+        }
+
+
          return view('datakurir', compact('data'));
     }
 
@@ -18,7 +24,7 @@ class KurirController extends Controller
     }
 
     public function insertkurir(Request $request){
-        Kurir::create($request->all());
+         Kurir::create($request->all());
         return redirect()->route('kurir')->with('success', ' Data Berhasil Di Tambahkan');
     }
 
@@ -34,5 +40,11 @@ class KurirController extends Controller
         $data->update($request->all());
 
         return redirect()->route('kurir')->with('success', ' Data Berhasil Di Update');
+    }
+
+    public function deletekurir($id){
+        $data = Kurir::find($id);
+        $data->delete();
+        return redirect()->route('kurir')->with('success', ' Data Berhasil Di Hapus');
     }
 }

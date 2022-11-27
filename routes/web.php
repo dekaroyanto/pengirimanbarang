@@ -25,3 +25,5 @@ Route::post('/insertkurir', [KurirController::class, 'insertkurir'])->name('inse
 
 Route::get('/tampilkankurir/{id}', [KurirController::class, 'tampilkankurir'])->name('tampilkankurir');
 Route::post('/updatekurir/{id}', [KurirController::class, 'updatekurir'])->name('updatekurir');
+
+Route::get('/deletekurir/{id}', [KurirController::class, 'deletekurir'])->name('deletekurir');

@@ -14,67 +14,59 @@
         integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g=="
         crossorigin="anonymous" referrerpolicy="no-referrer" />
 
-    <title>Kurir</title>
+    <title>Kendaraan</title>
 </head>
 
 <body>
-    <h1 class="text-center mt-3">Data Kurir</h1>
-
+    <h1 class="text-center mb-4">Data Kendaraan</h1>
     <div class="container">
-        <a href="/tambahkurir" class="btn btn-success">Tambah Data</a>
+        <a href="/tambahkendaraan" class="btn btn-success">Tambah Data</a>
         <div class="row g-3 align-items-center mt-2">
             <div class="col-auto">
-                <form action="/kurir" method="GET">
+                <form action="/kendaraan" method="GET">
                     <input type="search" id="inputPassword6" name="search" class="form-control"
-                        aria-describedby="passwordHelpInline">
+                        aria-describedby="passwordHelpInline" placeholder="Cari">
                 </form>
             </div>
+
         </div>
         <div class="row">
-            <div class="col">
-                {{-- @if ($message = Session::get('success'))
-                    <div class="alert alert-success" role="alert">
-                        {{ $message }}
-                    </div>
-                @endif --}}
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">No</th>
-                            <th scope="col">NIK</th>
-                            <th scope="col">Nama</th>
-                            <th scope="col">No Telepon</th>
-                            <th scope="col">Alamat</th>
-                            <th scope="col">Dibuat</th>
-                            <th scope="col">Aksi</th>
-                        </tr>
-                    </thead>
+            {{-- @if ($message = Session::get('success'))
+                <div class="alert alert-success" role="alert">
+                    {{ $message }}
+                </div>
+            @endif --}}
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">No</th>
+                        <th scope="col">Plat Nomor</th>
+                        <th scope="col">Jenis Kendaraan</th>
+                        <th scope="col">Merk</th>
+                        <th scope="col">Aksi</th>
+                    </tr>
+                </thead>
+                <tbody>
                     @php
                         $no = 1;
                     @endphp
-
-                    <tbody>
-                        @foreach ($data as $index => $row)
-                            <tr>
-                                <th scope="row">{{ $index + $data->firstItem() }}</th>
-                                <td>{{ $row->nik }}</td>
-                                <td>{{ $row->nama }}</td>
-                                <td>0{{ $row->notelepon }}</td>
-                                <td>{{ $row->alamat }}</td>
-                                <td>{{ $row->created_at->format('d-M-Y H:i:s') }}</td>
-                                <td>
-                                    <a href="/tampilkankurir/{{ $row->id }}" class="btn btn-info">Edit</a>
-                                    <a href="#" class="btn btn-danger delete" data-id="{{ $row->id }}"
-                                        data-nama="{{ $row->nama }}">Hapus</a>
-                                </td>
-                            </tr>
-                        @endforeach
-                    </tbody>
-                </table>
-                <div class="my-5">
-                    {{ $data->links() }}
-                </div>
-
+                    @foreach ($data as $index => $row)
+                        <tr>
+                            <th scope="row">{{ $index + $data->firstItem() }}</th>
+                            <td>{{ $row->platno }}</td>
+                            <td>{{ $row->jeniskendaraan }}</td>
+                            <td>{{ $row->merk }}</td>
+                            <td>
+                                <a href="/tampilkankendaraan/{{ $row->id }}" class="btn btn-info">Edit</a>
+                                <a href="#" class="btn btn-danger delete" data-id="{{ $row->id }}"
+                                    data-platno="{{ $row->platno }}">Hapus</a>
+                            </td>
+                        </tr>
+                    @endforeach
+                </tbody>
+            </table>
+            <div class="my-5">
+                {{ $data->links() }}
             </div>
         </div>
     </div>
@@ -96,8 +88,6 @@
         integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
         crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-
-
     <!-- Option 2: Separate Popper and Bootstrap JS -->
     <!--
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"
@@ -111,20 +101,20 @@
 
 <script>
     $('.delete').click(function() {
-        var kuririd = $(this).attr('data-id');
-        var nama = $(this).attr('data-nama');
+        var kendaraanid = $(this).attr('data-id');
+        var platno = $(this).attr('data-platno');
 
 
         swal({
                 title: "Yakin ?",
-                text: "Kamu akan menghapus data kurir dengan nama " + nama + " ",
+                text: "Kamu akan menghapus data kendaraan dengan plat nomor " + platno + " ",
                 icon: "warning",
                 buttons: true,
                 dangerMode: true,
             })
             .then((willDelete) => {
                 if (willDelete) {
-                    window.location = "/deletekurir/" + kuririd + ""
+                    window.location = "/deletekendaraan/" + kendaraanid + ""
                     swal("Data Berhasil Dihapus !", {
                         icon: "success",
                     });
@@ -135,11 +125,11 @@
     });
 </script>
 
+
 <script>
     @if (Session::has('success'))
         toastr.success("{{ Session::get('success') }}");
     @endif
 </script>
-
 
 </html>

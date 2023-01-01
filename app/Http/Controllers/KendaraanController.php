@@ -10,7 +10,10 @@ class KendaraanController extends Controller
     public function index(Request $request)
     {
         if ($request->has('search')) {
-            $data = Kendaraan::where('platno', 'LIKE', '%' . $request->search . '%')->paginate(5);
+            $data = Kendaraan::where('platno', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('jeniskendaraan', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('merk', 'LIKE', '%' . $request->search . '%')
+                ->paginate(5);
         } else {
             $data = Kendaraan::paginate(5);
         }

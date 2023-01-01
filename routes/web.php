@@ -16,7 +16,7 @@ use App\Http\Controllers\KendaraanController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('home');
 });
 
 // start kurir
@@ -26,6 +26,7 @@ Route::get('/tambahkurir', [KurirController::class, 'tambahkurir'])->name('tamba
 Route::post('/insertkurir', [KurirController::class, 'insertkurir'])->name('insertkurir');
 
 Route::get('/tampilkankurir/{id}', [KurirController::class, 'tampilkankurir'])->name('tampilkankurir');
+Route::get('/detailkankurir/{id}', [KurirController::class, 'detailkankurir'])->name('detailkankurir');
 Route::post('/updatekurir/{id}', [KurirController::class, 'updatekurir'])->name('updatekurir');
 
 Route::get('/deletekurir/{id}', [KurirController::class, 'deletekurir'])->name('deletekurir');

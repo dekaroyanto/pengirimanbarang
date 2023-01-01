@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('nama');
             $table->bigInteger('notelepon');
             $table->string('alamat');
+            $table->string('foto');
             $table->timestamps();
         });
     }
